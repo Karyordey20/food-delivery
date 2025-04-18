@@ -1,10 +1,10 @@
 const express = require("express")
 const mongooseDB = require("./db")
 const Router = require("./Routes/appRoutes")
-const userModel  = require("./Model/userSchema")
 const tokenValidation = require("./validations/tokenValidation")
-const restaurantRoute = require("./Routes/restaurantRoute")
+// const restaurantRoute = require("./Routes/restaurantRoute")
 const { registerValidate, loginValidate } = require("./validations/Validation")
+const router = require("./Routes/restaurantRoute")
 
 
 const app = express()
@@ -26,10 +26,10 @@ app.get(("/"), (req,res)=>{
 
 app.use(("/api"),registerValidate, Router)
 app.use(("/api"),loginValidate, Router)
+app.use(("/api"), router)
 
 //restaurant CRUD
-app.use(("/api"), restaurantRoute)
-
+// app.use(("/api"), restaurantRoute)
 
 
 

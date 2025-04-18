@@ -1,9 +1,9 @@
 const express = require("express")
-const { registerRestaurant } = require("../controllers/restaurantctrl")
+const restaurant = require("../controllers/restaurantctrl")
+
+const router = express.Router()
 
 
-const restaurantRoute = express.Router()
+router.post(("/createRestaurant"), restaurant )
 
-restaurantRoute.post(("/register_restaurant"), registerRestaurant )
-
-module.exports = restaurantRoute
+module.exports = router
