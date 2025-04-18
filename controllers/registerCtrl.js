@@ -38,7 +38,7 @@ const loginCTRL = async (req,res)=>{
 
         res.status(200).json({
             message:"Successful",
-             token, 
+            token, 
             user 
         })
     } catch (error) {

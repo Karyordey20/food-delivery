@@ -5,6 +5,8 @@ const tokenValidation = require("./validations/tokenValidation")
 // const restaurantRoute = require("./Routes/restaurantRoute")
 const { registerValidate, loginValidate } = require("./validations/Validation")
 const router = require("./Routes/restaurantRoute")
+const menuRouter = require("./Routes/menuRoute")
+const orderRoute = require("./Routes/orderRoute")
 
 
 const app = express()
@@ -24,9 +26,11 @@ app.get(("/"), (req,res)=>{
     res.status(200).json({message:"welcome to Food Delivery database"})
 })
 
-app.use(("/api"),registerValidate, Router)
-app.use(("/api"),loginValidate, Router)
-app.use(("/api"), router)
+app.use(("/api"),registerValidate, Router)//register user
+app.use(("/api"),loginValidate, Router)//login user
+app.use(("/api"), router)//restaurant
+app.use(("/api"), menuRouter)//menu
+app.use(("/api"), orderRoute)//order 
 
 //restaurant CRUD
 // app.use(("/api"), restaurantRoute)
