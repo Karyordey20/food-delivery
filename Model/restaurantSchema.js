@@ -3,6 +3,7 @@ const menuModel = require("../Model/menuSchema")
 menuModel()
 
     const restaurantSchema = new mongoose.Schema({
+        email:{type:String},
         name:{type:String},
         location:{type:String},
         contactInfo: {

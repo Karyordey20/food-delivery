@@ -74,4 +74,4 @@ function validateEmail(email) {
   
   }
 
-  module.exports = {registerValidate,loginValidate}
+  module.exports = {registerValidate,loginValidate, validateEmail}

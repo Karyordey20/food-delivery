@@ -26,8 +26,7 @@ app.get(("/"), (req,res)=>{
     res.status(200).json({message:"welcome to Food Delivery database"})
 })
 
-app.use(("/api"),registerValidate, Router)//register user
-app.use(("/api"),loginValidate, Router)//login user
+app.use(("/api"), Router)//register/login user
 app.use(("/api"), router)//restaurant
 app.use(("/api"), menuRouter)//menu
 app.use(("/api"), orderRoute)//order 

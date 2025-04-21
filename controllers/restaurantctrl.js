@@ -1,11 +1,17 @@
 const restaurantModel = require("../Model/restaurantSchema")
+const userModel = require("../Model/userSchema")
 
 //CREAT RESTAURANT
 const restaurant = async (req,res) => {
   try {
-    const {name,location,contactInfo,associatedMenu} = req.body
+    const {email,name,location,contactInfo,associatedMenu} = req.body
+
+    const user = await userModel.findOne({email})
+    if(!user){
+      return res.status(404).json({message:"Email is not recognised!"})
+    }
   
-    const newRestaurant = new restaurantModel({name,location,contactInfo,associatedMenu})
+    const newRestaurant = new restaurantModel({email,name,location,contactInfo,associatedMenu})
     await  newRestaurant.save()
     res.status(200).json({
       message:"Successful", 
@@ -21,7 +27,7 @@ const getResaurant = async (req,res)=>{
   try {
      const {id} = req.params
   
-     const restaurant = await restaurantModel.findById(id)
+     const restaurant = await restaurantModel.findById(id).populate("associatedMenu")
      res.status(200).json({message:"Successful", restaurant})
   } catch (error) {
     res.status(500).json({message:error.message})
@@ -33,17 +39,18 @@ const getResaurant = async (req,res)=>{
 const updateRestaurant = async(req,res)=>{
   try {
     const {id} =  req.params
-    const {name,location,contactInfo,associatedMenu} = req.body
+    const {email,name,location,contactInfo,associatedMenu} = req.body
     
     const updateUser = await restaurantModel.findByIdAndUpdate(id, 
       {
+        email,
         name,
         location,
         contactInfo,
         associatedMenu
       }, 
       {new:true}
-    )
+    ).populate("associatedMenu")
 
     res.status(200).json(
       {
