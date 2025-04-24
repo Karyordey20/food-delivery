@@ -8,6 +8,6 @@ const deliverySchema = new mongoose.Schema({
     status:{type:String}
 })
 
-const deliveryModel = new mongoose.model(("delivery"), deliverySchema)
+const deliveryModel = new mongoose.model(("deliveryModel"), deliverySchema)
 
 module.exports = deliveryModel

@@ -2,20 +2,23 @@ const mongoose = require("mongoose")
 const userModel = require("../Model/userSchema")
 const restaurantModel = require("../Model/restaurantSchema")
 const menuModel = require("../Model/menuSchema")
-const delivery = require("../Model/delivery")
+const deliveryModel = require("../Model/delivery")
+deliveryModel()
 restaurantModel()
 userModel()
 menuModel()
+
+
 const orderSChema = new mongoose.Schema({
     userId: {type: mongoose.Schema.Types.ObjectId, ref: "userModel"},
     restaurantId:{type:mongoose.Schema.Types.ObjectId, ref:"restaurantModel"},
     orderedItems: [{type: mongoose.Schema.Types.ObjectId, ref:"menuModel"}],
-
     quantity:{type:Number, default:0},
     price: {type:Number, default:0, new:true},
     totalCost : {type: Number, default: 0},
     orderStatus: {type: String,default: "pending"},
-    deliveryPersonnel:{type:mongoose.Schema.Types.ObjectId, ref:"deliveryModel"}
+    deliveryPersonelId:{type:mongoose.Schema.Types.ObjectId, ref:"deliveryModel"}
+    
 },
 {
     timestamps: true

@@ -2,7 +2,8 @@ const menuModel = require("../Model/menuSchema")
 const orderModel = require("../Model/orderSchema")
 const restaurantModel = require("../Model/restaurantSchema")
 const userModel = require("../Model/userSchema")
-
+const delivery = require("../Model/delivery")
+delivery()
 const orderFxn = async (req, res)=>{
 
     try {
@@ -35,9 +36,9 @@ const orderFxn = async (req, res)=>{
 const updateOrder = async (req,res)=>{
     try {
         const {id} = req.params
-        const {deliveryPersonnel} = req.body
+        const {deliveryPersonelId} = req.body
     
-        const updateOder = await orderModel.findByIdAndUpdate(id, deliveryPersonnel).populate("deliveryPersonnel") 
+        const updateOder = await orderModel.findByIdAndUpdate(id,{deliveryPersonelId}, {new:true})
            
         res.status(200).json({message:"successful", updateOder})
     } catch (error) {
@@ -45,4 +46,16 @@ const updateOrder = async (req,res)=>{
     }
 }
 
-module.exports = {orderFxn,updateOrder}
+const getOrder = async(req,res) =>{
+    try {
+        const {_id} = req.body
+
+        const findOrder = await orderModel.findOne({_id}).populate("userId").populate("restaurantId").populate("deliveryPersonelId")
+
+        res.status(200).json({message: findOrder})
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
+module.exports = {orderFxn,updateOrder,getOrder}

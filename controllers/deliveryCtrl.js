@@ -14,4 +14,15 @@ const delivery = async (req,res) =>{
    }
 }
 
-module.exports = delivery
+const getDeliveryPersonel = async (req,res) =>{
+
+   try {
+     const findPersonel = await deliveryModel.findOne()
+     res.status(200).json({message:findPersonel})
+   } catch (error) {
+    res.status(500).json({message:error.message})
+   }
+ 
+}
+
+module.exports = {delivery,getDeliveryPersonel}
