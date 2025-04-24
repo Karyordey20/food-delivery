@@ -20,7 +20,7 @@ const orderFxn = async (req, res)=>{
         if(!verifyOrderId){
             return res.status(404).json({message:"order account not found"})
         }
-    
+        verifyOrderId.price += totalCost
         const newOrder = new orderModel({userId,restaurantId,orderedItems,quantity,price,totalCost,orderStatus}) 
         await newOrder.save()
 
@@ -32,4 +32,17 @@ const orderFxn = async (req, res)=>{
 
 }
 
-module.exports = orderFxn
+const updateOrder = async (req,res)=>{
+    try {
+        const {id} = req.params
+        const {deliveryPersonnel} = req.body
+    
+        const updateOder = await orderModel.findByIdAndUpdate(id, deliveryPersonnel).populate("deliveryPersonnel") 
+           
+        res.status(200).json({message:"successful", updateOder})
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
+module.exports = {orderFxn,updateOrder}

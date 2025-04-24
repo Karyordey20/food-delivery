@@ -7,6 +7,7 @@ const { registerValidate, loginValidate } = require("./validations/Validation")
 const router = require("./Routes/restaurantRoute")
 const menuRouter = require("./Routes/menuRoute")
 const orderRoute = require("./Routes/orderRoute")
+const deliveryRoute = require("./Routes/deliveryRoutes")
 
 
 const app = express()
@@ -30,6 +31,7 @@ app.use(("/api"), Router)//register/login user
 app.use(("/api"), router)//restaurant
 app.use(("/api"), menuRouter)//menu
 app.use(("/api"), orderRoute)//order 
+app.use(("/api"), deliveryRoute)//deliverypersonnel 
 
 //restaurant CRUD
 // app.use(("/api"), restaurantRoute)
